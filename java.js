@@ -2,11 +2,17 @@
 
 const link = "https://frontendseptember-f268.restdb.io/rest/humans";
 const key = "5d887447fd86cb75861e25f9";
+const form = document.querySelector("form");
 
 window.addEventListener("DOMContentLoaded", get);
 
-const form = document.querySelector("form");
-document.querySelector("input[type=submit]").addEventListener("click", post);
+form.setAttribute("novalidate", true);
+
+form.addEventListener("submit", e => {
+  form.submit.disabled = true;
+  e.preventDefault();
+  formSubmited();
+});
 
 function get() {
   fetch(link, {
@@ -53,10 +59,25 @@ function display(people) {
 }
 
 function deleted(id) {
-  console.log(id);
+  document.querySelector(
+    `.person[data-personid="${id}"] > button`
+  ).disabled = true;
+  //console.log(id);
+  fetch(link + "/" + id, {
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-apikey": key,
+      "cache-control": "no-cache"
+    }
+  })
+    .then(e => e.json())
+    .then(data => {
+      document.querySelector(`.person[data-personid="${id}"]`).remove();
+    });
 }
 
-function post() {
+function formSubmited() {
   const newPerson = {
     age: "",
     gender: "",
@@ -71,6 +92,10 @@ function post() {
 
   const jsonPerson = JSON.stringify(newPerson);
 
+  post(jsonPerson);
+}
+
+function post(jsonPerson) {
   fetch(link, {
     method: "post",
     headers: {
@@ -81,30 +106,33 @@ function post() {
     body: jsonPerson
   })
     .then(res => res.json())
-    .then(data => console.log(data));
-  const template = document.querySelector("template").content;
-  const clone = template.cloneNode(true);
-  const parent = document.querySelector("ul.peopleList");
-  clone.querySelector("h3.name").textContent = "Name: " + newPerson.name;
-  clone.querySelector("h3.gender").textContent = "Gender: " + newPerson.gender;
-  clone.querySelector("img.icon").src = newPerson.gender + ".png";
-  clone.querySelector("img.icon").alt = newPerson.gender;
-  clone.querySelector("h3.profession").textContent =
-    "Profession: " + newPerson.profession;
-  if (newPerson.age >= 10 && newPerson.age <= 19) {
-    clone.querySelector("h3.age").textContent =
-      "Age: " + newPerson.age + " years old";
-  } else if (newPerson.age.toString().includes("1")) {
-    clone.querySelector("h3.age").textContent =
-      "Age: " + newPerson.age + " year old";
-  } else {
-    clone.querySelector("h3.age").textContent =
-      "Age: " + newPerson.age + " years old";
-  }
+    .then(data => {
+      const template = document.querySelector("template").content;
+      const clone = template.cloneNode(true);
+      const parent = document.querySelector("ul.peopleList");
+      clone.querySelector("h3.name").textContent = "Name: " + data.name;
+      clone.querySelector("h3.gender").textContent = "Gender: " + data.gender;
+      clone.querySelector("img.icon").src = data.gender + ".png";
+      clone.querySelector("img.icon").alt = data.gender;
+      clone.querySelector("h3.profession").textContent =
+        "Profession: " + data.profession;
+      if (data.age >= 10 && data.age <= 19) {
+        clone.querySelector("h3.age").textContent =
+          "Age: " + data.age + " years old";
+      } else if (data.age.toString().includes("1")) {
+        clone.querySelector("h3.age").textContent =
+          "Age: " + data.age + " year old";
+      } else {
+        clone.querySelector("h3.age").textContent =
+          "Age: " + data.age + " years old";
+      }
 
-  // clone.querySelector("button.delete").addEventListener("click", () => {
-  //   deleted(newPerson._id);
-  // });
-  //clone.querySelector("li").dataset.personid = newPerson._id;
-  parent.prepend(clone);
+      clone.querySelector("button.delete").addEventListener("click", () => {
+        deleted(data._id);
+      });
+      clone.querySelector("li").dataset.personid = data._id;
+      parent.prepend(clone);
+
+      form.submit.disabled = false;
+    });
 }

@@ -1,25 +1,61 @@
 html {
+  background: #50a3ad;
 }
 body {
   margin: 0;
 }
+.wrapper {
+  margin: 0 10px;
+}
 ul {
   padding: 0;
   margin-bottom: 0;
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 li {
   list-style: none;
   padding: 10px;
+  border-radius: 10px;
 }
 li:nth-child(odd) {
   background: #ffcbcb;
+}
+body > div > form > div {
+  margin: 5px 0;
 }
 
 li:nth-child(even) {
   background: #ffb5b5;
 }
 form {
+  border-radius: 15px;
+  background: #ffeeee;
+  padding: 15px;
+  /* width: calc(80% - 10vw); */
+  margin: 0 auto;
 }
 h1 {
   text-align: center;
+}
+
+form h2 {
+  margin-left: 0;
+  margin-top: 0;
+}
+body > div > h2 {
+  margin-left: 20px;
+}
+
+.delete {
+  cursor: pointer;
+  background-color: rgb(138, 28, 28);
+  border: none;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.delete:hover {
+  background-color: red;
 }

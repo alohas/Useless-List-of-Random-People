@@ -14,30 +14,38 @@
       <form>
         <h2>Add yourselft to the list</h2>
         <div>
-          <label for="name">Name:</label>
+          <label for="name">Name:</label><br />
           <input type="text" id="name" name="name" required />
         </div>
         <div>
-          <label for="age">Age:</label>
+          <label for="age">Age:</label><br />
           <input type="number" id="age" name="age" required />
         </div>
         <div>
-          <label for="gender">Gender:</label>
+          <label for="gender">Gender:</label><br />
           <select id="gender" name="gender" required>
+            <option value="">Choose gender</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </select>
         </div>
         <div>
-          <label for="profession">Profession:</label>
+          <label for="profession">Profession:</label><br />
           <input type="text" id="profession" name="profession" required />
         </div>
-        <input type="submit" value="Add to the list" />
+        <div>
+          <input id="agree" type="checkbox" required />
+          <label for="agree">
+            By checking this box, you accept the fact that you do not care about
+            the data you give us</label
+          >
+        </div>
+
+        <input name="submit" type="submit" value="Add to the list" />
       </form>
 
-      <ul class="peopleList">
-        <h2>People in the list:</h2>
-      </ul>
+      <h2>People in the list:</h2>
+      <ul class="peopleList"></ul>
     </div>
     <template>
       <li class="person">
