@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Useless list of people</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>Useless List of random people</h1>
+
+      <form>
+        <h2>Add yourselft to the list</h2>
+        <div>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div>
+          <label for="age">Age:</label>
+          <input type="number" id="age" name="age" required />
+        </div>
+        <div>
+          <label for="gender">Gender:</label>
+          <select id="gender" name="gender" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+        <div>
+          <label for="profession">Profession:</label>
+          <input type="text" id="profession" name="profession" required />
+        </div>
+        <input type="submit" value="Add to the list" />
+      </form>
+
+      <ul class="peopleList">
+        <h2>People in the list:</h2>
+      </ul>
+    </div>
+    <template>
+      <li class="person">
+        <img class="icon" src="" alt="" />
+        <h3 class="name"></h3>
+        <h3 class="age"></h3>
+        <h3 class="gender"></h3>
+        <h3 class="profession"></h3>
+        <button class="delete">Delete me</button>
+      </li>
+    </template>
+    <script src="java.js"></script>
+  </body>
+</html>

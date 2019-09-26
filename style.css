@@ -1,0 +1,25 @@
+html {
+}
+body {
+  margin: 0;
+}
+ul {
+  padding: 0;
+  margin-bottom: 0;
+}
+li {
+  list-style: none;
+  padding: 10px;
+}
+li:nth-child(odd) {
+  background: #ffcbcb;
+}
+
+li:nth-child(even) {
+  background: #ffb5b5;
+}
+form {
+}
+h1 {
+  text-align: center;
+}
